@@ -29,5 +29,7 @@ yarn-error.log*
 /part1/part1d-state-example
 /part1/1.2-unicafe/node_modules
 /part1/1.3-anecdotes/node_modules
+/part2/2a-example-1
+/part2/2.1-courseinfo/node_modules
 
 

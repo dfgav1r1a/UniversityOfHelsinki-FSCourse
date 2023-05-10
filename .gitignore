@@ -1,0 +1,33 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# directories for part1
+/part1/part1a-example
+/part1/1.1-courseinfo/node_modules
+/part1/part1c-example
+/part1/part1d-state-example
+/part1/1.2-unicafe/node_modules
+/part1/1.3-anecdotes/node_modules
+
+

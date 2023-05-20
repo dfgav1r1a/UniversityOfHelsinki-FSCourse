@@ -3,6 +3,7 @@ import axiosService from './services/axios.service';
 import SearchRecord from "./components/searchRecord";
 import Records from "./components/showRecords";
 import Form from "./components/addRecord";
+import Error from "./components/Error";
 
 function App() {
   const [people, setPeople] = useState([]);
@@ -33,9 +34,9 @@ function App() {
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h2 className="title">Phonebook</h2>
       <SearchRecord records={people} handleQuery={handleQuery} />
-      <h2>Add new record</h2>
+      <h2 className="title">Add new record</h2>
       <Form people={people}
         setPeople={setPeople}
         newName={newName}
@@ -43,7 +44,8 @@ function App() {
         phoneNumber={phoneNumber}
         setPhoneNumber={setPhoneNumber}
       />
-      <h2>Records</h2>
+      <Error/>
+      <h2 className="title">Records</h2>
       <Records records={people} setPeople={setPeople} queryResult={queryResult} />
     </div>
   );

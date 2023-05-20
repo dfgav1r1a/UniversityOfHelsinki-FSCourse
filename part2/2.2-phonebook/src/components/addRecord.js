@@ -50,19 +50,21 @@ const Form = ({ people, setPeople, newName, setNewName, phoneNumber, setPhoneNum
   }
 
   return (
-    <>
+    <div className="form">
       <form onSubmit={handleSubmit}>
         <div>
-          name: <input type='text' value={newName} onChange={handleOnchange} />
+          <label htmlFor="name">name:</label>
+          <input id="name" type='text' value={newName} onChange={handleOnchange} />
         </div>
         <div>
-          phone: <input type='text' value={phoneNumber} onChange={({ target }) => setPhoneNumber(target.value)} />
+          <label htmlFor="phone-number">phone:</label>
+          <input id="phone-number" type='text' value={phoneNumber} onChange={({ target }) => setPhoneNumber(target.value)} />
         </div>
         <div>
           <button type='submit'>add</button>
         </div>
       </form>
-    </>
+    </div>
   )
 }
 

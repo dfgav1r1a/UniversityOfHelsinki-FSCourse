@@ -19,7 +19,7 @@ const Records = ({ records, setPeople, queryResult }) => {
     } 
 
     return (
-        <div>
+        <div className='recordsDisplay'>
             {
                 queryResult
                     .map(record => {

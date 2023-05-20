@@ -1,7 +1,8 @@
 const SearchRecord = ({ records, handleQuery }) => {
     return (
-        <div>
-            search: <input type="text" onChange={handleQuery} />
+        <div className="search">
+            <label>search:</label>
+            <input type="text" onChange={handleQuery} />
         </div>
     )
 }

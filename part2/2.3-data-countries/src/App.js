@@ -38,6 +38,7 @@ function App() {
     <>
       <Form countries={countriesData} setCountryQuery={setCountryQuery} />
       <InfoDisplay
+        countriesData={countriesData}
         search={search}
         countryQuery={countryQuery}
         errorMsg={errorMsg}

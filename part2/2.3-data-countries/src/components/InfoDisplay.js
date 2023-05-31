@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axiosService from '../services/axios.service';
 import { ErrorMsg } from './Messages';
 
-const SingleCountry = ({ btnText, country, oneCountry, handleShow}) => {
+const SingleCountry = ({ btnText, country, handleShow }) => {
     return (
         <>
             <p /*key={country.flag}*/ className='countryQuery'>{country.name.common}
                 <button key={country.name.common}
-                    onClick={()=>handleShow(country.name.common)}>
+                    onClick={() => handleShow(country.name.common)}>
                     {
                         btnText ? 'Show Info' : 'Hide Info'
                     }
@@ -38,23 +38,32 @@ const SingleCountry = ({ btnText, country, oneCountry, handleShow}) => {
 
 const InfoDisplay = ({ search, errorMsg }) => {
     const [btnText, setBtnText] = useState(true);
-    const [oneCountry, setOneCountry] = useState([]);
+    const [weatherData, setWeatherData] = useState(null);
 
+    //for the weather functionality
+    let lat = null;
+    let lon = null;
+    if (search.length === 1) {
+        search.map(c => {
+            lat = c.capitalInfo.latlng[0];
+            lon = c.capitalInfo.latlng[1]
+        });
+    }
+
+    useEffect(() => {
+        axiosService.getWeather(lat, lon)
+            .then(data => setWeatherData(data))
+    }, []);
+
+    //to show country info when there are several matches
     const handleShow = (name) => {
         setBtnText(!btnText)
-        if (!btnText) {
-            //the following query seem unnecessary since I stored all the data from the first render into state, I could get the same result just by using the state but I am doing this to practice the fetch to a remote resource
-            axiosService
-                .getSingleCountry(name)
-                .then(country => setOneCountry([country]))
-                .catch(e => console.log(e.message))
-        }
     }
 
     return (
         <div className="display">
             {
-                errorMsg && <ErrorMsg />  
+                errorMsg && <ErrorMsg />
             }
             {
                 search.length < 10 && search.length > 1 ?
@@ -64,7 +73,6 @@ const InfoDisplay = ({ search, errorMsg }) => {
                                 <SingleCountry
                                     key={country.name.common}
                                     country={country}
-                                    oneCountry={oneCountry}
                                     btnText={btnText}
                                     setBtnText={setBtnText}
                                     handleShow={handleShow}
@@ -91,6 +99,8 @@ const InfoDisplay = ({ search, errorMsg }) => {
                                     </ul>
                                     <h3>Flag:</h3>
                                     <img src={country.flags.png} alt={country.flag.alt} />
+                                    <h3>Weather forecast for {country.capital}:</h3>
+                                    <p> The temperature is {weatherData.main.temp}</p>
                                 </>
                             )
                         }) :

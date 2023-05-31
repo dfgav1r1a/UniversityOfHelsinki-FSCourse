@@ -76,4 +76,22 @@ body {
     color: white;
     border-radius: 10px;
     font-size: 2em;
+    font-style: italic;
+    width: 85%;
+    margin: auto;
+    padding: 2px 9px;
+    text-align: center;
+}
+
+.success {
+    background-color: rgb(61, 185, 123);
+    color: white;
+    border-radius: 10px;
+    font-size: 2em;
+    font-style: italic;
+    width: 85%;
+    margin: auto;
+    padding: 2px 9px;
+    text-align: center;
+
 }

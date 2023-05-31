@@ -3,13 +3,15 @@ import axiosService from './services/axios.service';
 import SearchRecord from "./components/searchRecord";
 import Records from "./components/showRecords";
 import Form from "./components/addRecord";
-import Error from "./components/Error";
+import {SuccessMsg, Error} from "./components/clientMsg";
 
 function App() {
   const [people, setPeople] = useState([]);
   const [newName, setNewName] = useState('');//state for name input
   const [phoneNumber, setPhoneNumber] = useState('');//state for phoneNumber input
   const [query, setQuery] = useState('');//state for search functionality
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
 
   useEffect(() => {
     console.log('fetching');
@@ -43,10 +45,21 @@ function App() {
         setNewName={setNewName}
         phoneNumber={phoneNumber}
         setPhoneNumber={setPhoneNumber}
+        setSuccessMsg={setSuccessMsg}
+        setErrorMessage={setErrorMessage}
       />
-      <Error/>
+      {
+        successMsg ? <SuccessMsg successMsg={successMsg} /> :
+        errorMessage ? <Error errorMessage={errorMessage}/> :
+        <></>
+      }
       <h2 className="title">Records</h2>
-      <Records records={people} setPeople={setPeople} queryResult={queryResult} />
+      <Records 
+        records={people} setPeople={setPeople}
+        setSuccessMsg={setSuccessMsg}
+        setErrorMessage={setErrorMessage}
+        queryResult={queryResult} 
+      />
     </div>
   );
 }

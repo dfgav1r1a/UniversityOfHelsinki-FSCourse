@@ -12,8 +12,8 @@ function App() {
   //loading all countries and saving that into state 
   useEffect(() => {
     console.log('fetching resource and rendering');
-    axiosService.
-      getCountries()
+    axiosService
+      .getCountries()
       .then(data => {
         setCountriesData(data);
       })
@@ -33,14 +33,12 @@ function App() {
     // return name === countryQuery; this line shows the exact match
     return name.includes(countryQuery);//this line shows several options
   });
-
+console.log(search);
   return (
     <>
       <Form countries={countriesData} setCountryQuery={setCountryQuery} />
       <InfoDisplay
-        countriesData={countriesData}
         search={search}
-        countryQuery={countryQuery}
         errorMsg={errorMsg}
       />
 

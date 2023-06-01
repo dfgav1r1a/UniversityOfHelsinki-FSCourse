@@ -1,8 +1,10 @@
 import axios from 'axios';
 
-const baseUrl = 'https://studies.cs.helsinki.fi/restcountries'
-const api_key = process.env.REACT_APP_WEATHER_APP;
 
+const baseUrl = 'https://studies.cs.helsinki.fi/restcountries'
+const api_key = process.env.REACT_APP_WEATHER_API;
+
+console.log(process.env.REACT_APP_WEATHER_APP);
 //get countries
 const getCountries = () => {
     const request = axios.get(`${baseUrl}/api/all`)

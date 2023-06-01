@@ -5,9 +5,9 @@ import { ErrorMsg } from './Messages';
 const SingleCountry = ({ btnText, country, handleShow }) => {
     return (
         <>
-            <p /*key={country.flag}*/ className='countryQuery'>{country.name.common}
+            <p className='countryQuery'>{country.name.common}
                 <button key={country.name.common}
-                    onClick={() => handleShow(country.name.common)}>
+                    onClick={() => handleShow()}>
                     {
                         btnText ? 'Show Info' : 'Hide Info'
                     }
@@ -41,22 +41,27 @@ const InfoDisplay = ({ search, errorMsg }) => {
     const [weatherData, setWeatherData] = useState(null);
 
     //for the weather functionality
-    let lat = null;
-    let lon = null;
+    const coordinates = [];
     if (search.length === 1) {
         search.map(c => {
-            lat = c.capitalInfo.latlng[0];
-            lon = c.capitalInfo.latlng[1]
+            const lat = c.capitalInfo.latlng[0];
+            const lon = c.capitalInfo.latlng[1]
+            return coordinates.push(lat, lon);
         });
     }
 
     useEffect(() => {
-        axiosService.getWeather(lat, lon)
-            .then(data => setWeatherData(data))
-    }, []);
+        //controlling execution of request
+        if (search.length === 1) {
+            axiosService.getWeather(coordinates[0], coordinates[1])
+                .then(data => setWeatherData(data))
+        }
+    });
 
-    //to show country info when there are several matches
-    const handleShow = (name) => {
+    const weatherIcon = weatherData.weather[0].icon;
+    const weatherImg = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`
+
+    const handleShow = () => {
         setBtnText(!btnText)
     }
 
@@ -74,7 +79,6 @@ const InfoDisplay = ({ search, errorMsg }) => {
                                     key={country.name.common}
                                     country={country}
                                     btnText={btnText}
-                                    setBtnText={setBtnText}
                                     handleShow={handleShow}
                                 />
                                 <hr />
@@ -99,8 +103,13 @@ const InfoDisplay = ({ search, errorMsg }) => {
                                     </ul>
                                     <h3>Flag:</h3>
                                     <img src={country.flags.png} alt={country.flag.alt} />
-                                    <h3>Weather forecast for {country.capital}:</h3>
-                                    <p> The temperature is {weatherData.main.temp}</p>
+                                    <h3>Current weather for {country.capital}:</h3>
+                                    {weatherData &&
+                                        <>
+                                            <p> The temperature is {weatherData.main.temp} Celsius</p>
+                                            <img src={weatherImg} />
+                                        </>
+                                    }
                                 </>
                             )
                         }) :

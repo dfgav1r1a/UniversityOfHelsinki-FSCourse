@@ -33,5 +33,6 @@ yarn-error.log*
 /part2/2.1-courseinfo/node_modules
 /part2/2.2-phonebook/node_modules
 /part2/2.3-data-countries/node_modules
+/part2/2.3-data-countries/.env
 
 

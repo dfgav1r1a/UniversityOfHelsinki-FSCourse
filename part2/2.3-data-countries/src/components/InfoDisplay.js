@@ -41,25 +41,27 @@ const InfoDisplay = ({ search, errorMsg }) => {
     const [weatherData, setWeatherData] = useState(null);
 
     //for the weather functionality
-    const coordinates = [];
-    if (search.length === 1) {
-        search.map(c => {
-            const lat = c.capitalInfo.latlng[0];
-            const lon = c.capitalInfo.latlng[1]
-            return coordinates.push(lat, lon);
-        });
-    }
-
     useEffect(() => {
         //controlling execution of request
+        const coordinates = [];
         if (search.length === 1) {
+            search.map(c => {
+                const lat = c.capitalInfo.latlng[0];
+                const lon = c.capitalInfo.latlng[1]
+                return coordinates.push(lat, lon);
+            });
+
             axiosService.getWeather(coordinates[0], coordinates[1])
                 .then(data => setWeatherData(data))
         }
+
     });
 
-    const weatherIcon = weatherData.weather[0].icon;
-    const weatherImg = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`
+    let weatherIcon, weatherImg;
+    if (weatherData) {
+        weatherIcon = weatherData.weather[0].icon;
+        weatherImg = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`
+    }
 
     const handleShow = () => {
         setBtnText(!btnText)

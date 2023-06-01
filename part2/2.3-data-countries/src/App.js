@@ -33,7 +33,7 @@ function App() {
     // return name === countryQuery; this line shows the exact match
     return name.includes(countryQuery);//this line shows several options
   });
-console.log(search);
+
   return (
     <>
       <Form countries={countriesData} setCountryQuery={setCountryQuery} />
